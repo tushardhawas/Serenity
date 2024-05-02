@@ -3,8 +3,7 @@ import './Card.css';
 
 const Card = ({ imageSrc, audioSrc }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showRange, setShowRange] = useState(false); 
-  const [currentTime, setCurrentTime] = useState(0); 
+  const [showVolumeControl, setShowVolumeControl] = useState(false); 
   const audioRef = useRef();
 
   const togglePlay = () => {
@@ -12,43 +11,37 @@ const Card = ({ imageSrc, audioSrc }) => {
 
     if (isPlaying) {
       audio.pause();
-      setShowRange(false);
-
+      setShowVolumeControl(false);
     } else {
       audio.play();
-      setShowRange(true);
+      setShowVolumeControl(true);
     }
 
     setIsPlaying(!isPlaying);
   };
 
-  const handleTimeUpdate = () => {
+  const handleVolumeChange = (e) => {
     const audio = audioRef.current;
-    setCurrentTime(audio.currentTime);
-  };
-
-  const handleSliderChange = (e) => {
-    const audio = audioRef.current;
-    audio.currentTime = e.target.value;
-    setCurrentTime(audio.currentTime);
+    audio.volume = e.target.value;
   };
 
   return (
     <div className="card-container">
       <div className="card">
         <img src={imageSrc} alt="Image" onClick={togglePlay} />
-        {showRange && ( 
+        {showVolumeControl && ( 
           <div>
             <input
               type="range"
               min={0}
-              max={audioRef.current?.duration || 0}
-              value={currentTime}
-              onChange={handleSliderChange}
+              max={1}
+              step={0.01}
+              defaultValue={audioRef.current?.volume || 1}
+              onChange={handleVolumeChange}
             />
           </div>
         )}
-        <audio ref={audioRef} src={audioSrc} onTimeUpdate={handleTimeUpdate}></audio>
+        <audio ref={audioRef} src={audioSrc}></audio>
       </div>
     </div>
   );

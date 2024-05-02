@@ -4,6 +4,9 @@
   margin-top: 60px;
 }
 
+input[type='range'] {
+  width: 100%;
+}
 .card {
   background-color: transparent;
   border-radius: 10px;
