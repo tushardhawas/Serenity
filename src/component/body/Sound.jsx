@@ -25,6 +25,12 @@ const Card = ({ imageSrc, audioSrc }) => {
     audio.volume = e.target.value;
   };
 
+  const handleEnded = () => {
+    const audio = audioRef.current;
+    audio.currentTime = 0;
+    audio.play();
+  };
+
   return (
     <div className="card-container">
       <div className="card">
@@ -41,7 +47,7 @@ const Card = ({ imageSrc, audioSrc }) => {
             />
           </div>
         )}
-        <audio ref={audioRef} src={audioSrc}></audio>
+        <audio ref={audioRef} src={audioSrc} onEnded={handleEnded}></audio>
       </div>
     </div>
   );
