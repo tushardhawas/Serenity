@@ -1,19 +1,14 @@
 import './Navbar.css';
 
-const nav = () => {
+const nav = ({ onAbout, onToggleTheme, theme }) => {
   return (
-    <>
-      <div className="navbar">
-        <div className=" logo">Serenity</div>
-        <div className="nav-link">
-          <ul>
-            <li>Features</li>
-            <li>How it works</li>
-          </ul>
-        </div>
-        <div className="nav-button"><button className="button">Toogle</button></div>
-      </div>
-    </>
+    <header className="navbar">
+      <div className="logo">Serenity</div>
+     
+      <button className="nav-button" type="button" onClick={onToggleTheme}>
+        {theme === 'soft' ? 'Dusk' : 'Soft'}
+      </button>
+    </header>
   );
 };
 
